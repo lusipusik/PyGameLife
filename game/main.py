@@ -28,14 +28,15 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-                xmove = xmove + 1
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_a:
-                xmove = xmove - 1
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-                ymove = ymove + 1
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
-                ymove = ymove - 1
+#            if event.type == pygame.KEYDOWN:
+ #               if event.key == pygame.K_d:
+  #                  xmove = xmove + 3
+   #             if event.key == pygame.K_a:
+    #                xmove = xmove - 3
+     #           if event.key == pygame.K_s:
+      #              ymove = ymove + 3
+       #         if event.key == pygame.K_w:
+        #            ymove = ymove - 3
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 board.get_click(event.pos)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
@@ -45,9 +46,17 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 5:
                 speed -= 1
 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_d]:
+            xmove = xmove + 3
+        if keys[pygame.K_a]:
+            xmove = xmove - 3
+        if keys[pygame.K_s]:
+            ymove = ymove + 3
+        if keys[pygame.K_w]:
+            ymove = ymove - 3
         screen.fill((0, 0, 0))
         board.render(screen, xmove, ymove)
-        print(ymove, xmove)
         brd.render(screen, xmove, ymove)
         if ticks >= speed:
             if time_on:
