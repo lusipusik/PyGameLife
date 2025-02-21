@@ -17,11 +17,11 @@ class Board:
         self.cell_size = 0
         self.set_view(left, top, cell_size)
 
-    def render(self, screen):
+    def render(self, screen, xmove, ymove):
         for y in range(self.height):
             for x in range(self.width):
                 pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                 (x * self.cell_size + self.left, y * self.cell_size + self.top,
+                                 (x * self.cell_size + self.left + xmove, y * self.cell_size + self.top + ymove,
                                   self.cell_size,
                                   self.cell_size), 1)
 

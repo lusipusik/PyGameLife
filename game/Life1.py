@@ -10,19 +10,19 @@ class Life(Board):
     def on_click(self, cell):
         self.board[cell[1]][cell[0]] = (self.board[cell[1]][cell[0]] + 1) % 2
 
-    def render(self, screen):
+    def render(self, screen, xmove, ymove):
         for y in range(self.height):
             for x in range(self.width):
                 if self.board[y][x]:
                     # живые клетки рисуем зелеными
                     pygame.draw.rect(screen, pygame.Color("green"),
-                                     (x * self.cell_size + self.left, y * self.cell_size + self.top,
+                                     (x * self.cell_size + self.left + xmove, y * self.cell_size + self.top + ymove,
                                       self.cell_size,
                                       self.cell_size))
-                pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                 (x * self.cell_size + self.left, y * self.cell_size + self.top,
-                                  self.cell_size,
-                                  self.cell_size), 1)
+#                pygame.draw.rect(screen, pygame.Color(255, 255, 255),
+ #                                (x * self.cell_size + self.left + x, y * self.cell_size + self.top + ymove,
+ #                                 self.cell_size,
+ #                                 self.cell_size), 1)
 
     def next_move(self):
         tmp_board = copy.deepcopy(self.board)
