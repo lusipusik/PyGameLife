@@ -31,9 +31,11 @@ def main():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:
-                    zoom += 10
+                    zoom += 2
                 elif event.button == 5:
-                    zoom -= 10
+                    zoom -= 2
+                    if zoom < -30:
+                        zoom = -30
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 board.get_click(event.pos)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
@@ -45,13 +47,13 @@ def main():
         brd.xyz(xmove, ymove, zoom)
         board.xyz(xmove, ymove, zoom)
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_d]:
-            xmove = xmove + 3
         if keys[pygame.K_a]:
+            xmove = xmove + 3
+        if keys[pygame.K_d]:
             xmove = xmove - 3
-        if keys[pygame.K_s]:
-            ymove = ymove + 3
         if keys[pygame.K_w]:
+            ymove = ymove + 3
+        if keys[pygame.K_s]:
             ymove = ymove - 3
         screen.fill((0, 0, 0))
         board.render(screen)

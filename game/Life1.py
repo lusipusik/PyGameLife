@@ -14,21 +14,21 @@ class Life(Board):
         self.board[cell[1]][cell[0]] = (self.board[cell[1]][cell[0]] + 1) % 2
 
     def render(self, screen):
+        cell_size = self.cell_size + self.zoom
         for y in range(self.height):
             for x in range(self.width):
-                self.cell_size = self.cell_size + self.zoom
                 if self.board[y][x]:
                     # живые клетки рисуем зелеными
                     pygame.draw.rect(screen, pygame.Color("green"),
-                                     (x * self.cell_size + self.left + self.xmove + self.zoom,
-                                      y * self.cell_size + self.top + self.ymove + self.zoom,
-                                      self.cell_size,
-                                      self.cell_size))
+                                     (x * cell_size + (self.left - self.zoom * 26) + self.xmove,
+                                      y * cell_size + (self.top - self.zoom * 26) + self.ymove,
+                                      cell_size,
+                                      cell_size))
                 pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                (x * self.cell_size + self.left + self.xmove + self.zoom,
-                                 y * self.cell_size + self.top + self.ymove + self.zoom,
-                                self.cell_size,
-                                self.cell_size), 1)
+                                (x * cell_size + (self.left - self.zoom * 26) + self.xmove,
+                                 y * cell_size + (self.top - self.zoom * 26) + self.ymove,
+                                cell_size,
+                                cell_size), 1)
 
     def next_move(self):
         tmp_board = copy.deepcopy(self.board)
