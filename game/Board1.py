@@ -20,14 +20,12 @@ class Board:
     def render(self, screen, xmove, ymove, zoom):
         for y in range(self.height):
             for x in range(self.width):
-                cell_size_with_zoom = self.cell_size + zoom
-                # Рассчитываем позицию клетки с учётом zoom и смещения камеры
-                cell_x = x * cell_size_with_zoom + self.left + xmove
-                cell_y = y * cell_size_with_zoom + self.top + ymove
-
-                # Рисуем границы клеток
+                self.cell_size = self.cell_size + zoom
                 pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                 (cell_x, cell_y, cell_size_with_zoom, cell_size_with_zoom), 1)
+                                 (x * self.cell_size + self.left + xmove + zoom,
+                                  y * self.cell_size + self.top + ymove + zoom,
+                                  self.cell_size,
+                                  self.cell_size), 1)
 
     # настройка внешнего вида
     def set_view(self, left, top, cell_size):
