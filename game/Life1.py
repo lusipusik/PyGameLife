@@ -5,25 +5,28 @@ from Board1 import Board
 
 class Life(Board):
     def __init__(self, width, height, left=10, top=10, cell_size=30):
+        self.xmove = 0
+        self.ymove = 0
+        self.zoom = 0
         super().__init__(width, height, left, top, cell_size)
 
     def on_click(self, cell):
         self.board[cell[1]][cell[0]] = (self.board[cell[1]][cell[0]] + 1) % 2
 
-    def render(self, screen, xmove, ymove, zoom):
+    def render(self, screen):
         for y in range(self.height):
             for x in range(self.width):
-                self.cell_size = self.cell_size + zoom
+                self.cell_size = self.cell_size + self.zoom
                 if self.board[y][x]:
                     # живые клетки рисуем зелеными
                     pygame.draw.rect(screen, pygame.Color("green"),
-                                     (x * self.cell_size + self.left + xmove + zoom,
-                                      y * self.cell_size + self.top + ymove + zoom,
+                                     (x * self.cell_size + self.left + self.xmove + self.zoom,
+                                      y * self.cell_size + self.top + self.ymove + self.zoom,
                                       self.cell_size,
                                       self.cell_size))
                 pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                (x * self.cell_size + self.left + xmove + zoom,
-                                 y * self.cell_size + self.top + ymove + zoom,
+                                (x * self.cell_size + self.left + self.xmove + self.zoom,
+                                 y * self.cell_size + self.top + self.ymove + self.zoom,
                                 self.cell_size,
                                 self.cell_size), 1)
 
@@ -43,3 +46,8 @@ class Life(Board):
                 elif s < 2 or s > 3:
                     tmp_board[y][x] = 0
         self.board = copy.deepcopy(tmp_board)
+
+    def xyz(self, xmove, ymove, zoom):
+        self.xmove = xmove
+        self.ymove = ymove
+        self.zoom = zoom

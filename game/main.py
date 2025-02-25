@@ -42,7 +42,8 @@ def main():
                 speed += 1
             if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
                 speed -= 1
-
+        brd.xyz(xmove, ymove, zoom)
+        board.xyz(xmove, ymove, zoom)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             xmove = xmove + 3
@@ -53,8 +54,8 @@ def main():
         if keys[pygame.K_w]:
             ymove = ymove - 3
         screen.fill((0, 0, 0))
-        board.render(screen, xmove, ymove, zoom)
-        brd.render(screen, xmove, ymove, zoom)
+        board.render(screen)
+        brd.render(screen)
         if ticks >= speed:
             if time_on:
                 board.next_move()

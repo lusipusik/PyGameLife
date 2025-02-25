@@ -15,15 +15,18 @@ class Board:
         self.left = 0
         self.top = 0
         self.cell_size = 0
+        self.xmove = 0
+        self.ymove = 0
+        self.zoom = 0
         self.set_view(left, top, cell_size)
 
-    def render(self, screen, xmove, ymove, zoom):
+    def render(self, screen):
         for y in range(self.height):
             for x in range(self.width):
-                self.cell_size = self.cell_size + zoom
+                self.cell_size = self.cell_size + self.zoom
                 pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                 (x * self.cell_size + self.left + xmove + zoom,
-                                  y * self.cell_size + self.top + ymove + zoom,
+                                 (x * self.cell_size + self.left + self.xmove + self.zoom,
+                                  y * self.cell_size + self.top + self.ymove + self.zoom,
                                   self.cell_size,
                                   self.cell_size), 1)
 
@@ -37,6 +40,10 @@ class Board:
     def on_click(self, cell):
         # заглушка для реальных игровых полей
         pass
+    def xyz(self, xmove, ymove, zoom):
+        self.xmove = xmove
+        self.ymove = ymove
+        self.zoom = zoom
 
     def get_cell(self, mouse_pos):
         cell_x = (mouse_pos[0] - self.left) // self.cell_size
