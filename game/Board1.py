@@ -46,11 +46,17 @@ class Board:
         self.zoom = zoom
 
     def get_cell(self, mouse_pos):
-        cell_x = (mouse_pos[0] - self.left - self.xmove - self.zoom) // self.cell_size
-        cell_y = (mouse_pos[1] - self.top - self.ymove + self.zoom) // self.cell_size
+        cell_size = self.cell_size + self.zoom  # текущий размер клетки с зумом
+        # Корректируем смещение центра поля при зуме
+        offset_x = (self.left - self.zoom * self.width / 2) + self.xmove
+        offset_y = (self.top - self.zoom * self.height / 2) + self.ymove
+        # Вычисляем координаты клетки
+        cell_x = (mouse_pos[0] - offset_x) // cell_size
+        cell_y = (mouse_pos[1] - offset_y) // cell_size
+        # Проверка границ
         if cell_x < 0 or cell_x >= self.width or cell_y < 0 or cell_y >= self.height:
             return None
-        return cell_x, cell_y
+        return int(cell_x), int(cell_y)
 
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
