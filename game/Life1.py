@@ -5,6 +5,8 @@ from Board1 import Board
 
 class Life(Board):
     def __init__(self, width, height, left=10, top=10, cell_size=30):
+        self.height = height
+        self.width = width
         self.xmove = 0
         self.ymove = 0
         self.zoom = 0
@@ -20,13 +22,13 @@ class Life(Board):
                 if self.board[y][x]:
                     # живые клетки рисуем зелеными
                     pygame.draw.rect(screen, pygame.Color("green"),
-                                     (x * cell_size + (self.left - self.zoom * 26) + self.xmove,
-                                      y * cell_size + (self.top - self.zoom * 26) + self.ymove,
+                                     (x * cell_size + (self.left - self.zoom * self.width / 2) + self.xmove,
+                                      y * cell_size + (self.top - self.zoom * self.height / 2) + self.ymove,
                                       cell_size,
                                       cell_size))
                 pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                (x * cell_size + (self.left - self.zoom * 26) + self.xmove,
-                                 y * cell_size + (self.top - self.zoom * 26) + self.ymove,
+                                (x * cell_size + (self.left - self.zoom * self.width / 2) + self.xmove,
+                                 y * cell_size + (self.top - self.zoom * self.height / 2) + self.ymove,
                                 cell_size,
                                 cell_size), 1)
 

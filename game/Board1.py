@@ -25,8 +25,8 @@ class Board:
         for y in range(self.height):
             for x in range(self.width):
                 pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                 (x * cell_size + (self.left - self.zoom * 26) + self.xmove,
-                                  y * cell_size + (self.top - self.zoom * 26) + self.ymove,
+                                 (x * cell_size + (self.left - self.zoom * self.width / 2) + self.xmove,
+                                  y * cell_size + (self.top - self.zoom * self.height / 2) + self.ymove,
                                   cell_size,
                                   cell_size), 1)
 
@@ -47,7 +47,7 @@ class Board:
 
     def get_cell(self, mouse_pos):
         cell_x = (mouse_pos[0] - self.left - self.xmove - self.zoom) // self.cell_size
-        cell_y = (mouse_pos[1] - self.top - self.ymove +   self.zoom) // self.cell_size
+        cell_y = (mouse_pos[1] - self.top - self.ymove + self.zoom) // self.cell_size
         if cell_x < 0 or cell_x >= self.width or cell_y < 0 or cell_y >= self.height:
             return None
         return cell_x, cell_y
