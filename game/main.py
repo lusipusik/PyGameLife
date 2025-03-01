@@ -1,16 +1,13 @@
 import pygame
-import tkinter as tk
-from Life1 import Life
-from Board1 import Board
+from Life import Life
+from Board import Board
 
 
 def main():
     pygame.init()
-    root = tk.Tk()
-    monitors_width = root.winfo_screenwidth()
-    monitors_height = root.winfo_screenheight()
-    root.destroy()
-    screen = pygame.display.set_mode((monitors_width, monitors_height - 90))
+    monitors_width = pygame.display.Info().current_w
+    monitors_height = pygame.display.Info().current_h
+    screen = pygame.display.set_mode((monitors_width - 20, monitors_height - 100))
     clock = pygame.time.Clock()
     pygame.display.set_caption('Игра «Жизнь»')
     brd = Board(60, 30, 80, 70, 40)

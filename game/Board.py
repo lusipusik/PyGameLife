@@ -1,14 +1,9 @@
 import pygame
-import tkinter as tk
 
 
 class Board:
 
     def __init__(self, width, height, left=10, top=10, cell_size=30):
-        root = tk.Tk()
-        monitors_width = root.winfo_screenwidth()
-        monitors_height = root.winfo_screenheight()
-        root.destroy()
         self.width = width
         self.height = height
         self.board = [[0] * width for _ in range(height)]

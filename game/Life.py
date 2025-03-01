@@ -1,6 +1,6 @@
 import pygame
 import copy
-from Board1 import Board
+from Board import Board
 
 
 class Life(Board):
