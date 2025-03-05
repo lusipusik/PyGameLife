@@ -26,11 +26,12 @@ def main():
     # Включено ли обновление поля
     time_on = False
     ticks = 0
-    speed = 10
+    speed = 1
     xmove = 0
     ymove = 0
     zoom = 0
     running = True
+    fps = 5
 
     while running:
         for event in pygame.event.get():
@@ -49,6 +50,7 @@ def main():
                 speed += 1
             if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
                 speed -= 1
+        
         board.xyz(xmove, ymove, zoom)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
@@ -59,15 +61,19 @@ def main():
             ymove = ymove + 3
         if keys[pygame.K_s]:
             ymove = ymove - 3
-        screen.fill((0, 0, 0))
-        board.render(screen)
+
         if ticks >= speed:
             if time_on:
                 board.next_move()
-            ticks = 0
-        pygame.display.flip()
-        clock.tick(150)
+            ticks = -1
         ticks += 1
+
+        screen.fill((0, 0, 0))
+        board.render(screen)
+        clock.tick(fps)
+        pygame.display.flip()
+        print('FLIP')
+    
     pygame.quit()
 
 

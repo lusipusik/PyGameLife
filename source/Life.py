@@ -5,11 +5,6 @@ from Board import Board
 
 class Life(Board):
     def __init__(self, width, height, left=10, top=10, cell_size=30):
-        self.height = height
-        self.width = width
-        self.xmove = 0
-        self.ymove = 0
-        self.zoom = 0
         super().__init__(width, height, left, top, cell_size)
 
     def on_click(self, cell):
@@ -48,8 +43,3 @@ class Life(Board):
                 elif s < 2 or s > 3:
                     tmp_board[y][x] = 0
         self.board = copy.deepcopy(tmp_board)
-
-    def xyz(self, xmove, ymove, zoom):
-        self.xmove = xmove
-        self.ymove = ymove
-        self.zoom = zoom

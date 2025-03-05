@@ -6,13 +6,14 @@ class Board:
     def __init__(self, width, height, left=10, top=10, cell_size=30):
         self.width = width
         self.height = height
-        self.board = [[0] * width for _ in range(height)]
-        self.left = 0
-        self.top = 0
-        self.cell_size = 0
+        self.left = left
+        self.top = top
+        self.cell_size = cell_size
         self.xmove = 0
         self.ymove = 0
         self.zoom = 0
+
+        self.board = [[0] * width for _ in range(height)]
         self.set_view(left, top, cell_size)
 
     def render(self, screen):
