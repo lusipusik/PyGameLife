@@ -8,8 +8,8 @@ class GameParameters:
         self.window_height = 500
         self.board_width=60
         self.board_height=30
-        self.board_offset_left=10
-        self.board_offset_top=10
+        self.board_offset_left=-400
+        self.board_offset_top=-200
         self.board_cell_size=30
 
 
