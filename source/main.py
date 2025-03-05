@@ -2,24 +2,24 @@ import pygame
 from Life import Life
 from Board import Board
 
-# class GameParameters:
-#     def __init__(self):
-#         self.window_width = 1000
-#         self.window_height = 500
-#         self.board_width=60
-#         self.board_height=30
-#         self.board_offset_left=80
-#         self.board_offset_top=70
-#         self.board_cell_size=40
+class GameParameters:
+    def __init__(self):
+        self.window_width = 1000
+        self.window_height = 500
+        self.board_width=60
+        self.board_height=30
+        self.board_offset_left=10
+        self.board_offset_top=10
+        self.board_cell_size=30
 
 
 def main():
     pygame.init()
-    # params = GameParameters()
-    screen = pygame.display.set_mode((2000, 1000))
+    params = GameParameters()
+    screen = pygame.display.set_mode((params.window_width, params.window_height))
     clock = pygame.time.Clock()
     pygame.display.set_caption('Игра «Жизнь»')
-    board = Life(60, 30, 80, 70, 40)
+    board = Life(params.board_width, params.board_height, params.board_offset_left, params.board_offset_top, params.board_cell_size)
 
     # Включено ли обновление поля
     time_on = False
@@ -70,7 +70,6 @@ def main():
         board.render(screen)
         clock.tick(fps)
         pygame.display.flip()
-        print('FLIP')
     
     pygame.quit()
 
