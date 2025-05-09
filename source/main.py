@@ -6,7 +6,7 @@ class GameParameters:
     def __init__(self):
         self.window_width = 1000
         self.window_height = 500
-        self.board_width = 60
+        self.board_width = 100
         self.board_height = 30
         self.board_offset_left = -400
         self.board_offset_top = -200

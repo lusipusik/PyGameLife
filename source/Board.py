@@ -27,28 +27,66 @@ class Board:
 
     def render(self, screen):
         cell_size = self.cell_size + self.zoom
+
         for y in range(self.height):
             for x in range(self.width):
                 cell = self.board[y][x]
-                color = (0, 0, 0)  # черный для пустых клеток
+                base_color = (0, 0, 0)  # черный для пустых клеток
 
+                # Определяем базовый цвет в зависимости от типа клетки
                 if cell['type'] == 1:  # семечко - синий
-                    color = (0, 0, 255)
+                    base_color = (0, 0, 200)
                 elif cell['type'] == 2:  # бутон - зеленый
-                    color = (0, 255, 0)
+                    base_color = (0, 180, 0)
                 elif cell['type'] == 3:  # корень - коричневый
-                    color = (139, 69, 19)
+                    base_color = (139, 69, 19)
 
+                # Вычисляем координаты клетки
+                cell_x = x * cell_size + (self.left - self.zoom * self.width / 2) + self.xmove
+                cell_y = y * cell_size + (self.top - self.zoom * self.height / 2) + self.ymove
+
+                # Осветляем цвет в зависимости от переизбытка плодородности
+                if cell['fertility'] > 3:
+                    excess = min(10, cell['fertility'] - 3)  # Ограничиваем максимальный эффект
+                    light_factor = 1 + (excess * 0.15)  # Коэффициент осветления
+
+                    # Осветляем базовый цвет
+                    if cell['type'] == 0:  # для пустых клеток
+                        color = (
+                            int(50 * light_factor),
+                            int(50 * light_factor),
+                            int(50 * light_factor)
+                        )
+                    else:
+                        color = (
+                            int(min(255, base_color[0] * light_factor)),
+                            int(min(255, base_color[1] * light_factor)),
+                            int(min(255, base_color[2] * light_factor))
+                        )
+                else:
+                    color = base_color
+
+                # Рисуем клетку
                 pygame.draw.rect(screen, color,
-                                 (x * cell_size + (self.left - self.zoom * self.width / 2) + self.xmove,
-                                  y * cell_size + (self.top - self.zoom * self.height / 2) + self.ymove,
-                                  cell_size,
-                                  cell_size))
-                pygame.draw.rect(screen, pygame.Color(255, 255, 255),
-                                 (x * cell_size + (self.left - self.zoom * self.width / 2) + self.xmove,
-                                  y * cell_size + (self.top - self.zoom * self.height / 2) + self.ymove,
-                                  cell_size,
-                                  cell_size), 1)
+                                 (cell_x, cell_y, cell_size, cell_size))
+
+                # Рисуем границу клетки
+                border_color = (200, 200, 200) if cell['fertility'] > 3 else (100, 100, 100)
+                pygame.draw.rect(screen, border_color,
+                                 (cell_x, cell_y, cell_size, cell_size), 1)
+
+                # Для сильно плодородных клеток добавляем эффект "сияния"
+                if cell['fertility'] > 5:
+                    glow_size = 2
+                    glow_color = (
+                        min(255, color[0] + 100),
+                        min(255, color[1] + 100),
+                        min(255, color[2] + 100)
+                    )
+                    pygame.draw.rect(screen, glow_color,
+                                     (cell_x - glow_size, cell_y - glow_size,
+                                      cell_size + glow_size * 2, cell_size + glow_size * 2),
+                                     glow_size)
 
     def set_view(self, left, top, cell_size):
         self.left = left
